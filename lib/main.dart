@@ -26,11 +26,73 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+  List<String> questions = [
+    'Fist question?',
+    'Second question?',
+    'Third question?',
+  ];
+  int questionNumber = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          flex: 5,
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Center(
+              child: Text(
+                questions[questionNumber],
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.green),
+                ),
+                onPressed: () {
+                  setState(() {
+                    questionNumber++;
+                  });
+                },
+                child: Text(
+                  'True',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                )),
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(15.0),
+            child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.red),
+                ),
+                onPressed: () {
+                  setState(() {
+                    questionNumber++;
+                  });
+                },
+                child: Text(
+                  'False',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0),
+                )),
+          ),
+        ),
+      ],
+    );
   }
 }
-
-
