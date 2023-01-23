@@ -31,12 +31,12 @@ class _QuizPageState extends State<QuizPage> {
   void checkAnswer (bool userPickedAnswer){
     bool correctAnswer = quizBrain.getCorrectAnswer();
     if (userPickedAnswer==correctAnswer){
-      print('user go it right');
+      scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+      print('user go it right ');
     }else{
+      scoreKeeper.add(Icon(Icons.close, color: Colors.red));
       print('user got it wrong');
     }
-    setState(() {
-      quizBrain.nextQuestion();
     });
   }
 
@@ -94,11 +94,9 @@ class _QuizPageState extends State<QuizPage> {
                 )),
           ),
         ),
-        // Row(
-        //   children: [
-        //     scoreKeeper,
-        //   ],
-        // )
+        Row(
+          children: scoreKeeper,
+        )
       ],
     );
   }

@@ -5,12 +5,13 @@ class QuizBrain{
   List<Question> _questionBank = [
     Question(q: 'First question', a: false),
     Question(q: 'Second question', a: true),
-    Question(q: 'Third question', a: true),
+    Question(q: 'Third question', a: false),
   ];
   String getQuestionText(){
     return _questionBank[_questionNumber].questionText;
   }
   bool getCorrectAnswer(){
+    print('Number is $_questionNumber');
     return _questionBank[_questionNumber].questionAnswer;
   }
   void nextQuestion(){
