@@ -28,7 +28,17 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   QuizBrain quizBrain = QuizBrain();
   List<Icon> scoreKeeper = [];
-
+  void checkAnswer (bool userPickedAnswer){
+    bool correctAnswer = quizBrain.getCorrectAnswer();
+    if (userPickedAnswer==correctAnswer){
+      print('user go it right');
+    }else{
+      print('user got it wrong');
+    }
+    setState(() {
+      quizBrain.nextQuestion();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +52,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionNumber].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25,
@@ -60,16 +70,7 @@ class _QuizPageState extends State<QuizPage> {
                   backgroundColor: MaterialStatePropertyAll(Colors.green),
                 ),
                 onPressed: () {
-                  bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
-                  if (correctAnswer==true){
-                    print('user go it right');
-                  }else{
-                    print('user got it wrong');
-                  }
-
-                  setState(() {
-                    questionNumber++;
-                  });
+                 checkAnswer(true);
                 },
                 child: Text(
                   'True',
@@ -85,15 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                   backgroundColor: MaterialStatePropertyAll(Colors.red),
                 ),
                 onPressed: () {
-                  bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
-                  if (correctAnswer==false){
-                    print('user go it right');
-                  }else{
-                    print('user got it wrong');
-                  }
-                  setState(() {
-                    questionNumber++;
-                  });
+                  checkAnswer(true);
                 },
                 child: Text(
                   'False',
@@ -101,6 +94,11 @@ class _QuizPageState extends State<QuizPage> {
                 )),
           ),
         ),
+        // Row(
+        //   children: [
+        //     scoreKeeper,
+        //   ],
+        // )
       ],
     );
   }
