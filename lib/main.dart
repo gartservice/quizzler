@@ -28,15 +28,17 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   QuizBrain quizBrain = QuizBrain();
   List<Icon> scoreKeeper = [];
-  void checkAnswer (bool userPickedAnswer){
+
+  void checkAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getCorrectAnswer();
-    if (userPickedAnswer==correctAnswer){
-      scoreKeeper.add(Icon(Icons.check, color: Colors.green));
-      print('user go it right ');
-    }else{
-      scoreKeeper.add(Icon(Icons.close, color: Colors.red));
-      print('user got it wrong');
-    }
+    setState(() {
+      if (userPickedAnswer == correctAnswer) {
+        scoreKeeper.add(Icon(Icons.check, color: Colors.green));
+        print('user go it right ');
+      } else {
+        scoreKeeper.add(Icon(Icons.close, color: Colors.red));
+        print('user got it wrong');
+      }
     });
   }
 
@@ -70,7 +72,7 @@ class _QuizPageState extends State<QuizPage> {
                   backgroundColor: MaterialStatePropertyAll(Colors.green),
                 ),
                 onPressed: () {
-                 checkAnswer(true);
+                  checkAnswer(true);
                 },
                 child: Text(
                   'True',
