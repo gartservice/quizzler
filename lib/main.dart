@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'quiz_brain.dart';
 
 void main() => runApp(Quizzler());
 
@@ -20,18 +21,13 @@ class Quizzler extends StatelessWidget {
 }
 
 class QuizPage extends StatefulWidget {
-
   @override
   State<QuizPage> createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPage> {
+  QuizBrain quizBrain = QuizBrain();
   List<Icon> scoreKeeper = [];
-  List<String> questions = [
-    'Fist question?',
-    'Second question?',
-    'Third question?',
-  ];
   int questionNumber = 0;
 
   @override
@@ -46,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[questionNumber],
+                quizBrain.questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25,
@@ -64,6 +60,13 @@ class _QuizPageState extends State<QuizPage> {
                   backgroundColor: MaterialStatePropertyAll(Colors.green),
                 ),
                 onPressed: () {
+                  bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                  if (correctAnswer==true){
+                    print('user go it right');
+                  }else{
+                    print('user got it wrong');
+                  }
+
                   setState(() {
                     questionNumber++;
                   });
@@ -82,6 +85,12 @@ class _QuizPageState extends State<QuizPage> {
                   backgroundColor: MaterialStatePropertyAll(Colors.red),
                 ),
                 onPressed: () {
+                  bool correctAnswer = quizBrain.questionBank[questionNumber].questionAnswer;
+                  if (correctAnswer==false){
+                    print('user go it right');
+                  }else{
+                    print('user got it wrong');
+                  }
                   setState(() {
                     questionNumber++;
                   });
