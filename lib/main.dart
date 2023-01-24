@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'quiz_brain.dart';
 
 void main() => runApp(Quizzler());
@@ -28,10 +29,47 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   QuizBrain quizBrain = QuizBrain();
   List<Icon> scoreKeeper = [];
-
+  _onAlertButtonsPressed(context) {
+    Alert(
+      context: context,
+      type: AlertType.warning,
+      title: "RFLUTTER ALERT",
+      desc: "Flutter is more awesome with RFlutter Alert.",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "FLAT",
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          onPressed: () => Navigator.pop(context),
+          color: Color.fromRGBO(0, 179, 134, 1.0),
+        ),
+        DialogButton(
+          child: Text(
+            "GRADIENT",
+            style: TextStyle(color: Colors.white, fontSize: 18),
+          ),
+          onPressed: () => Navigator.pop(context),
+          gradient: LinearGradient(colors: [
+            Color.fromRGBO(116, 116, 191, 1.0),
+            Color.fromRGBO(52, 138, 199, 1.0),
+          ]),
+        )
+      ],
+    ).show();
+  }
   void checkAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getCorrectAnswer();
+
     setState(() {
+      if(quizBrain.isFinished()){
+        print('alert');
+        // quizBrain.reset();
+        scoreKeeper = [];
+        _onAlertButtonsPressed(context);
+        return;
+      }
+
       if (userPickedAnswer == correctAnswer) {
         scoreKeeper.add(Icon(Icons.check, color: Colors.green));
         print('user go it right ');
@@ -39,6 +77,8 @@ class _QuizPageState extends State<QuizPage> {
         scoreKeeper.add(Icon(Icons.close, color: Colors.red));
         print('user got it wrong');
       }
+      quizBrain.nextQuestion();
+
     });
   }
 
